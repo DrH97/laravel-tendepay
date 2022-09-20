@@ -1,19 +1,10 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "drh/laravel-tendepay",
+    "description": "Tende Pay API Library",
     "keywords": [
-        ":vendor_name",
-        "laravel",
-        ":package_slug"
-    ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": ":author_name",
-            "email": "author@domain.com",
-            "role": "Developer"
-        }
+        "library",
+        "b2b payments",
+        "tendepay"
     ],
     "require": {
         "php": "^8.1",
@@ -33,33 +24,46 @@
         "phpunit/phpunit": "^9.5",
         "spatie/laravel-ray": "^1.26"
     },
-    "autoload": {
-        "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
-        }
-    },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
     },
+    "autoload": {
+        "psr-4": {
+            "DrH\\TendePay\\": "src",
+            "DrH\\TendePay\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DrH\\TendePay\\Tests\\": "tests"
+        }
+    },
+    "homepage": "https://github.com/drh97/laravel-tendepay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dr H",
+            "email": "jmnabangi@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "DrH\\TendePay\\TendePayServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "TendePay": "DrH\\TendePay\\Facades\\TendePay"
             }
         }
     },
