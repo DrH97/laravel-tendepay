@@ -44,8 +44,8 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest --coverage
+        run: vendor/bin/pest --coverage-clover clover.xml
 
       - name: Coverage
         if: matrix.stability == 'prefer-stable'
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        uses: codecov/codecov-action@v3
