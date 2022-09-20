@@ -1,7 +1,7 @@
 # Tende Pay API Library
 
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/drh/laravel-tendepay/run-tests?label=tests)](https://github.com/drh/laravel-tendepay/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/drh/laravel-tendepay/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/drh/laravel-tendepay/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/drh97/laravel-tendepay/run-tests?label=tests)](https://github.com/drh97/laravel-tendepay/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/drh97/laravel-tendepay/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/drh97/laravel-tendepay/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![codecov](https://codecov.io/gh/DrH97/laravel-tendepay/branch/master/graph/badge.svg?token=6b0d0ba1-c2c6-4077-8c3a-1f567eea88a0)](https://codecov.io/gh/DrH97/laravel-tendepay)
 
 [![Latest Stable Version](http://poser.pugx.org/drh/laravel-tendepay/v)](https://packagist.org/packages/drh/laravel-tendepay)
