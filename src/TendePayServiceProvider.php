@@ -21,8 +21,8 @@ class TendePayServiceProvider extends PackageServiceProvider
             ->hasMigrations(['create_tende_pay_requests_table', 'create_tende_pay_callbacks_table'])
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile()
-                    ->askToRunMigrations();
+                    ->publishConfigFile();
+//                    ->askToRunMigrations();
             });
     }
 }
