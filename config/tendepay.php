@@ -24,5 +24,4 @@ return [
     */
     'cache_credentials' => true,
 
-
 ];
