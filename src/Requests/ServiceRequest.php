@@ -11,4 +11,8 @@ abstract class ServiceRequest
     }
 
     abstract public function getServiceCode(): Service;
+
+    abstract public function validate(): bool;
+
+    abstract public function toArray(): array;
 }

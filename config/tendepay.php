@@ -44,4 +44,34 @@ return [
     */
     'encryption_key' => env('TENDEPAY_ENCRYPTION_KEY'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Username
+    |--------------------------------------------------------------------------
+    |
+    | Username provided by TendePay
+    |
+    */
+    'username' => env('TENDEPAY_USERNAME'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password
+    |--------------------------------------------------------------------------
+    |
+    | Password provided by TendePay
+    |
+    */
+    'password' => env('TENDEPAY_USERNAME'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Source Paybill for B2B requests
+    |--------------------------------------------------------------------------
+    |
+    | Paybill to use for funds
+    |
+    */
+    'source_paybill' => env('TENDEPAY_SOURCE_PAYBILL'),
+
 ];

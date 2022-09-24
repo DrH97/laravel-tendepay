@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 
 it('can run migrations', function () {
     TendePayRequest::create([
+        'unique_reference' => '',
         'transaction_reference' => 1,
         'text' => [],
         'timestamp' => Carbon::now()->timestamp,

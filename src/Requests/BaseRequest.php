@@ -13,17 +13,18 @@ class BaseRequest
      * @throws TendePayException
      */
     public function __construct(
-        public string $transactionReference,
         public ServiceRequest $text,
-        private string $msisdn,
+        public ?string $transactionReference = null,
+        private string $msisdn = '',
         private ?string $username = null,
         public ?string $Password = null,
         public ?string $timestamp = null
     ) {
+        $this->timestamp = $this->timestamp ?? Carbon::now()->timestamp;
+
         $this->setUsername();
         $this->setPassword();
-
-        $this->timestamp = $this->timestamp ?? Carbon::now()->timestamp;
+        $this->setTransactionReference();
 
         $this->generateUniqueReference();
     }
@@ -58,6 +59,11 @@ class BaseRequest
         }
     }
 
+    private function setTransactionReference(): void
+    {
+        $this->transactionReference = $this->transactionReference ?? rand();
+    }
+
     private function generateUniqueReference(): void
     {
         $serviceCode = $this->text->getServiceCode()->name;
@@ -66,5 +72,15 @@ class BaseRequest
         $password = $this->Password;
 
         $this->uniqueReference = md5($serviceCode.$time.$transactionReference.$password);
+    }
+
+    public function getModelValues(): array
+    {
+        return [
+            'unique_reference' => $this->uniqueReference,
+            'transaction_reference' => $this->transactionReference,
+            'text' => $this->text->toArray(),
+            'timestamp' => $this->timestamp,
+        ];
     }
 }

@@ -2,10 +2,7 @@
 
 namespace DrH\TendePay;
 
-use DrH\TendePay\Library\BaseClient;
-use GuzzleHttp\Client;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Spatie\LaravelPackageTools\Exceptions\InvalidPackage;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

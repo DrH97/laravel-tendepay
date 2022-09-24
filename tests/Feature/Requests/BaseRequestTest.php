@@ -11,13 +11,13 @@ beforeEach(function () {
 });
 
 it('throws when username is not set', function () {
-    new BaseRequest(1, getTestPaybillRequest(), '');
+    new BaseRequest(getTestPaybillRequest());
 })->throws(TendePayException::class, 'Username is not set');
 
 it('throws when password is not set', function () {
     Config::set('tendepay.username', 'username');
 
-    new BaseRequest(1, getTestPaybillRequest(), '');
+    new BaseRequest(getTestPaybillRequest());
 })->throws(TendePayException::class, 'Password is not set');
 
 it('initializes base request', function () {
@@ -25,9 +25,28 @@ it('initializes base request', function () {
     Config::set('tendepay.password', 'password');
 
     $testPaybillRequest = getTestPaybillRequest();
-    $request = new BaseRequest(1, $testPaybillRequest, '');
+    $request = new BaseRequest($testPaybillRequest);
 
     $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->Password;
 
     expect(md5($expectedUniqueReference))->toBe($request->uniqueReference);
+});
+
+it('returns correct model values', function () {
+    Config::set('tendepay.username', 'username');
+    Config::set('tendepay.password', 'password');
+
+    $testPaybillRequest = getTestPaybillRequest();
+    $request = new BaseRequest($testPaybillRequest, '1', '', timestamp: '2');
+
+    $actualValues = $request->getModelValues();
+
+    $expected = [
+        'unique_reference' => $request->uniqueReference,
+        'transaction_reference' => '1',
+        'text' => $testPaybillRequest->toArray(),
+        'timestamp' => '2',
+    ];
+
+    expect($actualValues)->toBe($expected);
 });
