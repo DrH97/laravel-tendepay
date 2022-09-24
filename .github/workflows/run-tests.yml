@@ -46,8 +46,7 @@ jobs:
       - name: Execute tests
         run: vendor/bin/pest --coverage-clover coverage.xml
 
-      - name: check file exists
-        run: ls -R
-
       - name: Coverage
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./build
