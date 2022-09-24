@@ -21,22 +21,10 @@ class TendePayServiceProvider extends PackageServiceProvider
             ->hasMigrations(['create_tende_pay_requests_table', 'create_tende_pay_callbacks_table'])
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile();
-//                    ->askToRunMigrations();
+                    ->publishConfigFile()
+                    ->askToRunMigrations();
             });
     }
-
-//    /**
-//     * @throws InvalidPackage
-//     */
-//    public function register()
-//    {
-//        parent::register();
-//
-////        $this->app->singleton(BaseClient::class, function () {
-////            return new BaseClient(new Client());
-////        });
-//    }
 
     public function boot(): TendePayServiceProvider|static
     {
@@ -49,7 +37,7 @@ class TendePayServiceProvider extends PackageServiceProvider
 
     private function requireHelperScripts()
     {
-        $files = glob(__DIR__.'/Support/*.php');
+        $files = glob(__DIR__ . '/Support/*.php');
         foreach ($files as $file) {
             include_once $file;
         }

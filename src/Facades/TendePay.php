@@ -8,8 +8,7 @@ use DrH\TendePay\Requests\PayBillRequest;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static TR payBillRequest(PayBillRequest $request, string $reference = null, int $relationId = null)
- * @method static TR buyBoodsRequest(BuyGoodsRequest $request, string $reference = null, int $relationId = null)
+ * @method static TR b2bRequest(PayBillRequest|BuyGoodsRequest $request, string $reference = null, int $relationId = null)
  *
  * @see \DrH\TendePay\TendePay
  */
