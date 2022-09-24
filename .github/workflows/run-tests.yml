@@ -2,9 +2,9 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   test:
@@ -12,10 +12,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        php: [8.1]
-        laravel: [9.*]
-        stability: [prefer-lowest, prefer-stable]
+        os: [ ubuntu-latest ]
+        php: [ 8.1 ]
+        laravel: [ 9.* ]
+        stability: [ prefer-lowest, prefer-stable ]
         include:
           - laravel: 9.*
             testbench: 7.*
@@ -44,7 +44,9 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest --coverage-clover clover.xml
+        run: composer test-coverage
 
       - name: Coverage
         uses: codecov/codecov-action@v3
+        with:
+          files: ./build/logs/clover.xml
