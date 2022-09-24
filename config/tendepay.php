@@ -24,4 +24,24 @@ return [
     */
     'cache_credentials' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | URL
+    |--------------------------------------------------------------------------
+    |
+    | Url of the api
+    |
+    */
+    'url' => env('TENDEPAY_URL', 'https://http://144.76.108.226:8180/GatewayAPIChannel/RequestProcessor'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Encryption key location
+    |--------------------------------------------------------------------------
+    |
+    | Location of the public key provided by TendePay
+    |
+    */
+    'encryption_key' => env('TENDEPAY_ENCRYPTION_KEY'),
+
 ];

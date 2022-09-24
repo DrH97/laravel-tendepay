@@ -2,7 +2,10 @@
 
 namespace DrH\TendePay;
 
+use DrH\TendePay\Library\BaseClient;
+use GuzzleHttp\Client;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Exceptions\InvalidPackage;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -24,5 +27,34 @@ class TendePayServiceProvider extends PackageServiceProvider
                     ->publishConfigFile();
 //                    ->askToRunMigrations();
             });
+    }
+
+//    /**
+//     * @throws InvalidPackage
+//     */
+//    public function register()
+//    {
+//        parent::register();
+//
+////        $this->app->singleton(BaseClient::class, function () {
+////            return new BaseClient(new Client());
+////        });
+//    }
+
+    public function boot(): TendePayServiceProvider|static
+    {
+        parent::boot();
+
+        $this->requireHelperScripts();
+
+        return $this;
+    }
+
+    private function requireHelperScripts()
+    {
+        $files = glob(__DIR__.'/Support/*.php');
+        foreach ($files as $file) {
+            include_once $file;
+        }
     }
 }
