@@ -37,12 +37,12 @@ class Core
     public function encrypt(string $plainText): string
     {
         $pub_key = config('tendepay.encryption_key');
-        if (!$pub_key) {
+        if (! $pub_key) {
             throw new TendePayException('Encryption key is not set');
         }
 
         $PK = openssl_get_publickey($pub_key);
-        if (!$PK) {
+        if (! $PK) {
             throw new TendePayException('Encryption key seems malformed');
         }
 
