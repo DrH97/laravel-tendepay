@@ -36,10 +36,10 @@ class TendePay
             'service' => $request->text->getServiceCode(),
             ...$request->getModelValues(),
 
-            'response_code'    => $response['responseCode'],
+            'response_code' => $response['responseCode'],
             'response_message' => $response['responseMessage'],
-            'status'           => $response['status'],
-            'successful'       => $response['successful'],
+            'status' => $response['status'],
+            'successful' => $response['successful'],
 
             'relation_id' => $relationId,
         ]);

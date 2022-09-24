@@ -37,7 +37,7 @@ class TendePayServiceProvider extends PackageServiceProvider
 
     private function requireHelperScripts()
     {
-        $files = glob(__DIR__ . '/Support/*.php');
+        $files = glob(__DIR__.'/Support/*.php');
         foreach ($files as $file) {
             include_once $file;
         }
