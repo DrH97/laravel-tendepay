@@ -30,7 +30,7 @@ class TendePayServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
 
         $this->requireHelperScripts();
 
@@ -39,7 +39,7 @@ class TendePayServiceProvider extends PackageServiceProvider
 
     private function requireHelperScripts()
     {
-        $files = glob(__DIR__ . '/Support/*.php');
+        $files = glob(__DIR__.'/Support/*.php');
         foreach ($files as $file) {
             include_once $file;
         }
