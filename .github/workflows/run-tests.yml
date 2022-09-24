@@ -49,10 +49,10 @@ jobs:
       - name: view files
         run: |
           ls -R ./build
-          cat ./build/report.junit.xml
+          cat ./build/coverage.xml
 
 
       - name: Coverage
         uses: codecov/codecov-action@v3
         with:
-          files: ./build/report.junit.xml
+          files: ./build/coverage.xml
