@@ -1,8 +1,6 @@
 <?php
 
-
 use function Pest\Laravel\postJson;
-
 
 // TODO: test callback
 //it('handles callback', function () {

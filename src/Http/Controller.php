@@ -2,7 +2,6 @@
 
 namespace DrH\TendePay\Http;
 
-
 use DrH\TendePay\Models\TendePayCallback;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -19,7 +18,7 @@ class Controller extends \Illuminate\Routing\Controller
 
             // TODO: Fire event
         } catch (QueryException $e) {
-            Log::error('Error handling callback. - ' . $e->getMessage());
+            Log::error('Error handling callback. - '.$e->getMessage());
         }
     }
 }
