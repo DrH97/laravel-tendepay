@@ -44,7 +44,13 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest --coverage-clover coverage.xml
+        run: vendor/bin/pest --coverage-clover ./build/coverage.xml
+
+      - name: view files
+        run: |
+          ls -R ./build
+          cat ./build/report.junit.xml
+
 
       - name: Coverage
         uses: codecov/codecov-action@v3
