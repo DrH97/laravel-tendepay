@@ -49,8 +49,8 @@ jobs:
       - name: view files
         run: |
           ls ./build
-          ls vendor/bin/pest
-          cat ./build/coverage.xml
+          ls ./vendor/bin/pest
+#          cat ./build/coverage.xml
 
 
       - name: Coverage
