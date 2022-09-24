@@ -11,12 +11,11 @@ class BuyGoodsRequest extends ServiceRequest
      * @throws TendePayException
      */
     public function __construct(
-        private string  $amount,
-        private string  $accountNumber,
-        private string  $tillNumber,
+        private string $amount,
+        private string $accountNumber,
+        private string $tillNumber,
         private ?string $sourcePaybill = null,
-    )
-    {
+    ) {
         $this->setSourcePaybill();
     }
 
@@ -25,9 +24,9 @@ class BuyGoodsRequest extends ServiceRequest
      */
     private function setSourcePaybill(): void
     {
-        if (!$this->sourcePaybill) {
+        if (! $this->sourcePaybill) {
             $sourcePaybill = config('tendepay.source_paybill');
-            if (!$sourcePaybill) {
+            if (! $sourcePaybill) {
                 throw new TendePayException('Source paybill is not set');
             }
 
@@ -38,9 +37,9 @@ class BuyGoodsRequest extends ServiceRequest
     public function toArray(): array
     {
         return [
-            'amount'         => $this->amount,
+            'amount' => $this->amount,
             'account_number' => $this->accountNumber,
-            'till_number'    => $this->tillNumber,
+            'till_number' => $this->tillNumber,
             'source_paybill' => $this->sourcePaybill,
         ];
     }
