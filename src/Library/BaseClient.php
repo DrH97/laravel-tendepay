@@ -3,7 +3,6 @@
 namespace DrH\TendePay\Library;
 
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
 
 class BaseClient
 {
@@ -14,19 +13,21 @@ class BaseClient
         $this->httpClient = $httpClient;
     }
 
-    public function sendRequest(string $method, string $url, array $body): ResponseInterface
+    public function sendRequest(string $method, string $url, array $body): array
     {
         $options = [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'json' => [],
+            'json' => $body,
         ];
 
-        return $this->httpClient->request(
+        $response = $this->httpClient->request(
             $method,
             $url,
             $options
         );
+
+        return json_decode($response->getBody(), true);
     }
 }

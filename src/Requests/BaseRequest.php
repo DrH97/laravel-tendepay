@@ -3,7 +3,9 @@
 namespace DrH\TendePay\Requests;
 
 use DrH\TendePay\Exceptions\TendePayException;
+use DrH\TendePay\Library\Core;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 class BaseRequest
 {
@@ -79,8 +81,22 @@ class BaseRequest
         return [
             'unique_reference' => $this->uniqueReference,
             'transaction_reference' => $this->transactionReference,
-            'text' => $this->text->toArray(),
             'timestamp' => $this->timestamp,
+            'msisdn' => $this->msisdn,
+            'text' => $this->text->toArray(),
+        ];
+    }
+
+    public function getEncryptedRequest(): array
+    {
+        $core = App::make(Core::class);
+
+        $arrayValues = $this->getModelValues();
+        array_pop($arrayValues);
+
+        return [
+            ...array_map(fn ($value) => $core->encrypt($value), $arrayValues),
+            'text' => $this->text->encrypt(),
         ];
     }
 }

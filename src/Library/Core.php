@@ -23,21 +23,12 @@ class Core
         $endpoint = $this->buildEndpoint($request->transactionReference, $request->text->getServiceCode());
         $method = 'POST';
 //
-//        tandaLogInfo("request: ", [$method, $endpoint, $body]);
-        $response = $this->baseClient->sendRequest($method, $endpoint, (array) $request);
-//        tandaLogInfo("response: ", parseGuzzleResponse($response, false));
-//
-//        $_body = json_decode($response->getBody());
-//        tandaLogInfo("body: ", (array)$_body);
-//
-//        if (!str_starts_with($response->getStatusCode(), "2")) {
-//            Log::error((array)$_body ?? $response->getBody());
-//            throw new TandaException($_body->message ?
-//                $_body->status . ' - ' . $_body->message : $response->getBody());
-//        }
-//        return (array)$_body;
+//        tendePayLogInfo("request: ", [$method, $endpoint, $body]);
+        $encryptedRequest = $request->getEncryptedRequest();
+        $response = $this->baseClient->sendRequest($method, $endpoint, $encryptedRequest);
+//        tendePayLogInfo("response: ", parseGuzzleResponse($response, false));
 
-        return (array) $response;
+        return $response;
     }
 
     /**

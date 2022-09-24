@@ -27,7 +27,7 @@ it('initializes base request', function () {
     $testPaybillRequest = getTestPaybillRequest();
     $request = new BaseRequest($testPaybillRequest);
 
-    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->Password;
+    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name . $request->timestamp . $request->transactionReference . $request->Password;
 
     expect(md5($expectedUniqueReference))->toBe($request->uniqueReference);
 });
@@ -42,11 +42,30 @@ it('returns correct model values', function () {
     $actualValues = $request->getModelValues();
 
     $expected = [
-        'unique_reference' => $request->uniqueReference,
+        'unique_reference'      => $request->uniqueReference,
         'transaction_reference' => '1',
-        'text' => $testPaybillRequest->toArray(),
-        'timestamp' => '2',
+        'timestamp'             => '2',
+        'msisdn'                => '',
+        'text'                  => $testPaybillRequest->toArray(),
     ];
 
     expect($actualValues)->toBe($expected);
+});
+
+it('encrypts request', function () {
+    Config::set('tendepay.username', 'username');
+    Config::set('tendepay.password', 'password');
+    Config::set('tendepay.source_paybill', '654321');
+
+    [, $public] = generateKeyPair();
+    Config::set('tendepay.encryption_key', $public);
+
+    $request = getTestPaybillRequest();
+    $encrypted = (new BaseRequest($request, '1', '', timestamp: '2'))->getEncryptedRequest();
+
+    expect($encrypted)
+        ->unique_reference->not->toBeEmpty()->not->toEqual('10')
+        ->transaction_reference->not->toBeEmpty()->not->toEqual('1')
+        ->text->toBeArray()
+        ->timestamp->not->toBeEmpty()->not->toEqual('2');
 });

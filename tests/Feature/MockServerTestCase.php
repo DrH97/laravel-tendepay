@@ -18,8 +18,6 @@ abstract class MockServerTestCase extends TestCase
 
     protected MockHandler $mock;
 
-    public Core $core;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,4 +29,23 @@ abstract class MockServerTestCase extends TestCase
 
         $this->core = new Core($this->baseClient);
     }
+
+    protected array $mockResponses = [
+        'success' => [
+            'responseMessage' => 'Request acknowledged succesfully.',
+            'successful' => true,
+            'status' => 'ACK_ACCEPTED',
+            'responseCode' => '317',
+        ],
+        'failed' => [
+            'responseMessage' => 'Required Service Parameter(s) [[source_paybill]] not supplied.',
+            'responseCode' => '506',
+            'status' => 'REQUIRED_PARAMS_MISSING',
+        ],
+        'invalid_creds' => [
+            'responseMessage' => 'Invalid credentials passed for the client',
+            'responseCode' => '313',
+            'status' => 'INVALID_CLIENT_CREDENTIALS',
+        ],
+    ];
 }

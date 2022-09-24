@@ -1,5 +1,7 @@
 <?php
 
+use DrH\TendePay\Exceptions\TendePayException;
+
 function generateKeyPair(): array
 {
     $private_key = openssl_pkey_new();
@@ -9,15 +11,19 @@ function generateKeyPair(): array
     return [$private_key, $public_key, $public_key_pem];
 }
 
+/**
+ * @throws TendePayException
+ */
 //function encrypt(string $plainText): string
 //{
-//    $fp = fopen('hf_key.pem', 'r');
-//    $pub_key = fread($fp, 8192);
-//    fclose($fp);
+//    $pub_key = config('tendepay.encryption_key');
+//    if (!$pub_key) {
+//        throw new TendePayException('Encryption key is not set');
+//    }
 //
 //    $PK = openssl_get_publickey($pub_key);
-//    if (! $PK) {
-//        echo 'Cannot get public key';
+//    if (!$PK) {
+//        throw new TendePayException('Encryption key seems malformed');
 //    }
 //
 //    openssl_public_encrypt($plainText, $encrypted, $PK);

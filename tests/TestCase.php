@@ -2,12 +2,16 @@
 
 namespace DrH\TendePay\Tests;
 
+use DrH\TendePay\Library\Core;
 use DrH\TendePay\TendePayServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\App;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    public Core $core;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -15,9 +19,11 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'DrH\\TendePay\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        $this->core = App::make(Core::class);
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             TendePayServiceProvider::class,
