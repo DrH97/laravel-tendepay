@@ -34,14 +34,10 @@ class Controller extends \Illuminate\Routing\Controller
             ]);
 
             // TODO: Fire event
-
         } catch (Exception $e) {
-
-            Log::error('Error handling callback. - ' . $e->getMessage());
-
+            Log::error('Error handling callback. - '.$e->getMessage());
         }
 
         return response()->json(['status' => true]);
-
     }
 }
