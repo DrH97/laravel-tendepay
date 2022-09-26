@@ -27,7 +27,7 @@ it('initializes base request', function () {
     $testPaybillRequest = getTestPaybillRequest();
     $request = new BaseRequest($testPaybillRequest);
 
-    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->Password;
+    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name . $request->timestamp . $request->transactionReference . $request->password;
 
     expect(md5($expectedUniqueReference))->toBe($request->uniqueReference);
 });
@@ -42,11 +42,11 @@ it('returns correct model values', function () {
     $actualValues = $request->getModelValues();
 
     $expected = [
-        'unique_reference' => $request->uniqueReference,
+        'unique_reference'      => $request->uniqueReference,
         'transaction_reference' => '1',
-        'timestamp' => '2',
-        'msisdn' => '',
-        'text' => $testPaybillRequest->toArray(),
+        'timestamp'             => '2',
+        'msisdn'                => '',
+        'text'                  => $testPaybillRequest->toArray(),
     ];
 
     expect($actualValues)->toBe($expected);
@@ -64,8 +64,8 @@ it('encrypts request', function () {
     $encrypted = (new BaseRequest($request, '1', '', timestamp: '2'))->getEncryptedRequest();
 
     expect($encrypted)
-        ->unique_reference->not->toBeEmpty()->not->toEqual('10')
-        ->transaction_reference->not->toBeEmpty()->not->toEqual('1')
+        ->uniqueReference->not->toBeEmpty()->not->toEqual('10')
+        ->transactionReference->not->toBeEmpty()->not->toEqual('1')
         ->text->toBeArray()
         ->timestamp->not->toBeEmpty()->not->toEqual('2');
 });
