@@ -3,7 +3,8 @@
 namespace DrH\TendePay\Http;
 
 use DrH\TendePay\Models\TendePayCallback;
-use Illuminate\Database\QueryException;
+use DrH\TendePay\Models\TendePayRequest;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +14,12 @@ class Controller extends \Illuminate\Routing\Controller
     {
 //        tendePayLogInfo("ipn: ", [$request]);
 
+        // TODO: Should we separate handling of Non-Existent request,
+        //  duplicate callback and catch-all Exceptions separately?
         try {
+            //Check that there exists a related request
+            TendePayRequest::whereTransactionReference($request->initiatorReference)->firstOrFail();
+
             TendePayCallback::create([
                 'initiator_reference' => $request->initiatorReference,
                 'response_code'       => $request->responseCode,
@@ -28,8 +34,14 @@ class Controller extends \Illuminate\Routing\Controller
             ]);
 
             // TODO: Fire event
-        } catch (QueryException $e) {
-            Log::error('Error handling callback. - '.$e->getMessage());
+
+        } catch (Exception $e) {
+
+            Log::error('Error handling callback. - ' . $e->getMessage());
+
         }
+
+        return response()->json(['status' => true]);
+
     }
 }
