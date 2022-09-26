@@ -74,4 +74,14 @@ return [
     */
     'source_paybill' => env('TENDEPAY_SOURCE_PAYBILL'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | MSISDN for requests
+    |--------------------------------------------------------------------------
+    |
+    | MSISDN(Phone number) to use for requests
+    |
+    */
+    'msisdn' => env('TENDEPAY_MSISDN'),
+
 ];

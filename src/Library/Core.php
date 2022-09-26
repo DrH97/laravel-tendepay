@@ -23,9 +23,12 @@ class Core
         $endpoint = $this->buildEndpoint($request->transactionReference, $request->text->getServiceCode());
         $method = 'POST';
 //
+        // TODO: Create tendepay logger
 //        tendePayLogInfo("request: ", [$method, $endpoint, $body]);
         $encryptedRequest = $request->getEncryptedRequest();
         $response = $this->baseClient->sendRequest($method, $endpoint, $encryptedRequest);
+        // TODO: Check for $response if duplicate and regenerate request
+        //  Add to env if we should throw or retry with different reference
 //        tendePayLogInfo("response: ", parseGuzzleResponse($response, false));
 
         return $response;
