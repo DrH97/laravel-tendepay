@@ -20,14 +20,24 @@ it('throws when password is not set', function () {
     new BaseRequest(getTestPaybillRequest());
 })->throws(TendePayException::class, 'Password is not set');
 
+it('throws when msisdn is not set', function () {
+    Config::set('tendepay.username', 'username');
+    Config::set('tendepay.password', 'password');
+    Config::set('tendepay.msisdn', '700000000');
+
+    Config::set('tendepay.msisdn');
+    new BaseRequest(getTestPaybillRequest());
+})->throws(TendePayException::class, 'MSISDN is not set');
+
 it('initializes base request', function () {
     Config::set('tendepay.username', 'username');
     Config::set('tendepay.password', 'password');
+    Config::set('tendepay.msisdn', '700000000');
 
     $testPaybillRequest = getTestPaybillRequest();
     $request = new BaseRequest($testPaybillRequest);
 
-    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->Password;
+    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->password;
 
     expect(md5($expectedUniqueReference))->toBe($request->uniqueReference);
 });
@@ -35,6 +45,7 @@ it('initializes base request', function () {
 it('returns correct model values', function () {
     Config::set('tendepay.username', 'username');
     Config::set('tendepay.password', 'password');
+    Config::set('tendepay.msisdn', '700000000');
 
     $testPaybillRequest = getTestPaybillRequest();
     $request = new BaseRequest($testPaybillRequest, '1', '', timestamp: '2');
@@ -45,7 +56,7 @@ it('returns correct model values', function () {
         'unique_reference' => $request->uniqueReference,
         'transaction_reference' => '1',
         'timestamp' => '2',
-        'msisdn' => '',
+        'msisdn' => '700000000',
         'text' => $testPaybillRequest->toArray(),
     ];
 
@@ -55,7 +66,7 @@ it('returns correct model values', function () {
 it('encrypts request', function () {
     Config::set('tendepay.username', 'username');
     Config::set('tendepay.password', 'password');
-    Config::set('tendepay.source_paybill', '654321');
+    Config::set('tendepay.msisdn', '700000000');
 
     [, $public] = generateKeyPair();
     Config::set('tendepay.encryption_key', $public);
@@ -64,8 +75,8 @@ it('encrypts request', function () {
     $encrypted = (new BaseRequest($request, '1', '', timestamp: '2'))->getEncryptedRequest();
 
     expect($encrypted)
-        ->unique_reference->not->toBeEmpty()->not->toEqual('10')
-        ->transaction_reference->not->toBeEmpty()->not->toEqual('1')
+        ->uniqueReference->not->toBeEmpty()->not->toEqual('10')
+        ->transactionReference->not->toBeEmpty()->not->toEqual('1')
         ->text->toBeArray()
         ->timestamp->not->toBeEmpty()->not->toEqual('2');
 });

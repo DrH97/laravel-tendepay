@@ -32,7 +32,7 @@ return [
     | Url of the api
     |
     */
-    'url' => env('TENDEPAY_URL', 'https://http://144.76.108.226:8180/GatewayAPIChannel/RequestProcessor'),
+    'url' => env('TENDEPAY_URL', 'http://144.76.108.226:8180/GatewayAPIChannel/RequestProcessor/request'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ return [
     | Password provided by TendePay
     |
     */
-    'password' => env('TENDEPAY_USERNAME'),
+    'password' => env('TENDEPAY_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,5 +73,15 @@ return [
     |
     */
     'source_paybill' => env('TENDEPAY_SOURCE_PAYBILL'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | MSISDN for requests
+    |--------------------------------------------------------------------------
+    |
+    | MSISDN(Phone number) to use for requests
+    |
+    */
+    'msisdn' => env('TENDEPAY_MSISDN'),
 
 ];

@@ -13,6 +13,7 @@ class Controller extends \Illuminate\Routing\Controller
     public function handleCallback(Request $request)
     {
 //        tendePayLogInfo("ipn: ", [$request]);
+        Log::info('callback: ', $request->all());
 
         // TODO: Should we separate handling of Non-Existent request,
         //  duplicate callback and catch-all Exceptions separately?

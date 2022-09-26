@@ -18,11 +18,16 @@ class TendePay
     /**
      * @throws TendePayException
      */
-    public function b2bRequest(PayBillRequest|BuyGoodsRequest $request, string $reference = null, int $relationId = null): TendePayRequest
+    public function b2bRequest(PayBillRequest|BuyGoodsRequest $request, string $reference = null, string $msisdn = null, int $relationId = null): TendePayRequest
     {
         $request->validate();
 
-        $baseRequest = new BaseRequest($request, $reference);
+        // TODO: Review checking of reference against db: otherwise duplicates may fail.
+        if ($reference && TendePayRequest::whereTransactionReference($reference)->exists()) {
+            throw new TendePayException('Request with this reference exists');
+        }
+
+        $baseRequest = new BaseRequest($request, $reference, $msisdn);
 
         // TODO: Review conversion of api response to object/class
         $response = $this->core->request($baseRequest);
@@ -39,7 +44,7 @@ class TendePay
             'response_code' => $response['responseCode'],
             'response_message' => $response['responseMessage'],
             'status' => $response['status'],
-            'successful' => $response['successful'],
+            'successful' => $response['successful'] ?? null,
 
             'relation_id' => $relationId,
         ]);
