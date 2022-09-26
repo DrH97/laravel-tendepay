@@ -30,6 +30,8 @@ class TendePayServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+
         $this->requireHelperScripts();
 
         return $this;
