@@ -27,7 +27,7 @@ it('initializes base request', function () {
     $testPaybillRequest = getTestPaybillRequest();
     $request = new BaseRequest($testPaybillRequest);
 
-    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name . $request->timestamp . $request->transactionReference . $request->password;
+    $expectedUniqueReference = $testPaybillRequest->getServiceCode()->name.$request->timestamp.$request->transactionReference.$request->password;
 
     expect(md5($expectedUniqueReference))->toBe($request->uniqueReference);
 });
@@ -42,11 +42,11 @@ it('returns correct model values', function () {
     $actualValues = $request->getModelValues();
 
     $expected = [
-        'unique_reference'      => $request->uniqueReference,
+        'unique_reference' => $request->uniqueReference,
         'transaction_reference' => '1',
-        'timestamp'             => '2',
-        'msisdn'                => '',
-        'text'                  => $testPaybillRequest->toArray(),
+        'timestamp' => '2',
+        'msisdn' => '',
+        'text' => $testPaybillRequest->toArray(),
     ];
 
     expect($actualValues)->toBe($expected);

@@ -16,13 +16,12 @@ class BaseRequest
      */
     public function __construct(
         public ServiceRequest $text,
-        public ?string        $transactionReference = null,
-        private string        $msisdn = '',
-        private ?string       $username = null,
-        public ?string        $password = null,
-        public ?string        $timestamp = null
-    )
-    {
+        public ?string $transactionReference = null,
+        private string $msisdn = '',
+        private ?string $username = null,
+        public ?string $password = null,
+        public ?string $timestamp = null
+    ) {
         $this->timestamp = $this->timestamp ?? Carbon::now()->timestamp;
 
         $this->setUsername();
@@ -37,9 +36,9 @@ class BaseRequest
      */
     private function setUsername(): void
     {
-        if (!$this->username) {
+        if (! $this->username) {
             $username = config('tendepay.username');
-            if (!$username) {
+            if (! $username) {
                 throw new TendePayException('Username is not set');
             }
 
@@ -52,9 +51,9 @@ class BaseRequest
      */
     private function setPassword(): void
     {
-        if (!$this->password) {
+        if (! $this->password) {
             $password = config('tendepay.password');
-            if (!$password) {
+            if (! $password) {
                 throw new TendePayException('Password is not set');
             }
 
@@ -74,29 +73,29 @@ class BaseRequest
         $transactionReference = $this->transactionReference;
         $password = $this->password;
 
-        $this->uniqueReference = md5($serviceCode . $time . $transactionReference . $password);
+        $this->uniqueReference = md5($serviceCode.$time.$transactionReference.$password);
     }
 
     public function getModelValues(): array
     {
         return [
-            'unique_reference'      => $this->uniqueReference,
+            'unique_reference' => $this->uniqueReference,
             'transaction_reference' => $this->transactionReference,
-            'timestamp'             => $this->timestamp,
-            'msisdn'                => $this->msisdn,
-            'text'                  => $this->text->toArray(),
+            'timestamp' => $this->timestamp,
+            'msisdn' => $this->msisdn,
+            'text' => $this->text->toArray(),
         ];
     }
 
     private function getRawRequestValues(): array
     {
         return [
-            'uniqueReference'      => $this->uniqueReference,
+            'uniqueReference' => $this->uniqueReference,
             'transactionReference' => $this->transactionReference,
-            'msisdn'               => $this->msisdn,
-            'username'             => $this->username,
-            'Password'             => $this->password,
-            'timestamp'            => $this->timestamp,
+            'msisdn' => $this->msisdn,
+            'username' => $this->username,
+            'Password' => $this->password,
+            'timestamp' => $this->timestamp,
         ];
     }
 
@@ -105,7 +104,7 @@ class BaseRequest
         $core = App::make(Core::class);
 
         return [
-            ...array_map(fn($value) => $core->encrypt($value), $this->getRawRequestValues()),
+            ...array_map(fn ($value) => $core->encrypt($value), $this->getRawRequestValues()),
             'text' => $this->text->encrypt(),
         ];
     }
