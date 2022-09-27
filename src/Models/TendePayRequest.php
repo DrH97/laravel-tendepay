@@ -4,6 +4,7 @@ namespace DrH\TendePay\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -32,4 +33,9 @@ class TendePayRequest extends Model
     protected $casts = [
         'text' => 'array',
     ];
+
+    public function callback(): HasOne
+    {
+        return $this->hasOne(TendePayCallback::class, 'initiator_reference', 'transaction_reference');
+    }
 }
