@@ -34,7 +34,6 @@ abstract class B2BRequest extends ServiceRequest
         }
     }
 
-    // TODO: To base class
     public function toArray(): array
     {
         return [
@@ -43,11 +42,6 @@ abstract class B2BRequest extends ServiceRequest
             'source_paybill' => $this->sourcePaybill,
         ];
     }
-
-//    public function getServiceCode(): Service
-//    {
-//        return Service::MPESA_PAY_BILL;
-//    }
 
     /**
      * @throws TendePayException

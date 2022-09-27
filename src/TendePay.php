@@ -50,11 +50,8 @@ class TendePay
             'relation_id' => $relationId,
         ]);
 
-        // TODO: Test event is fired
         event(new TendePayRequestEvent($model));
 
         return $model;
     }
-
-    //TODO: add ipn flow
 }
