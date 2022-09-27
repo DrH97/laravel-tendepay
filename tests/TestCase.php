@@ -6,6 +6,7 @@ use DrH\TendePay\Library\Core;
 use DrH\TendePay\TendePayServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -21,6 +22,8 @@ class TestCase extends Orchestra
         );
 
         $this->core = App::make(Core::class);
+
+        Event::fake();
     }
 
     protected function getPackageProviders($app): array
