@@ -2,6 +2,8 @@
 
 namespace DrH\TendePay\Http;
 
+use DrH\TendePay\Events\TendePayRequestFailedEvent;
+use DrH\TendePay\Events\TendePayRequestSuccessEvent;
 use DrH\TendePay\Models\TendePayCallback;
 use DrH\TendePay\Models\TendePayRequest;
 use Exception;
@@ -19,9 +21,9 @@ class Controller extends \Illuminate\Routing\Controller
         //  duplicate callback and catch-all Exceptions separately?
         try {
             //Check that there exists a related request
-            TendePayRequest::whereTransactionReference($request->initiatorReference)->firstOrFail();
+            $tendePayRequest = TendePayRequest::whereTransactionReference($request->initiatorReference)->firstOrFail();
 
-            TendePayCallback::create([
+            $callback = TendePayCallback::create([
                 'initiator_reference' => $request->initiatorReference,
                 'response_code' => $request->responseCode,
                 'status' => $request->status,
@@ -34,7 +36,11 @@ class Controller extends \Illuminate\Routing\Controller
                 'date' => $request->date,
             ]);
 
-            // TODO: Fire event
+            $event = $callback->status === '1' ?
+                new TendePayRequestSuccessEvent($tendePayRequest, $callback) :
+                new TendePayRequestFailedEvent($tendePayRequest, $callback);
+
+            event($event);
         } catch (Exception $e) {
             Log::error('Error handling callback. - '.$e->getMessage());
         }

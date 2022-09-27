@@ -2,6 +2,7 @@
 
 namespace DrH\TendePay;
 
+use DrH\TendePay\Events\TendePayRequestEvent;
 use DrH\TendePay\Exceptions\TendePayException;
 use DrH\TendePay\Library\Core;
 use DrH\TendePay\Models\TendePayRequest;
@@ -49,7 +50,8 @@ class TendePay
             'relation_id' => $relationId,
         ]);
 
-        //TODO: TendePayEvents::fire($model);
+        // TODO: Test event is fired
+        event(new TendePayRequestEvent($model));
 
         return $model;
     }

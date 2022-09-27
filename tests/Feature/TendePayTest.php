@@ -1,5 +1,6 @@
 <?php
 
+use DrH\TendePay\Events\TendePayRequestEvent;
 use DrH\TendePay\Exceptions\TendePayException;
 use DrH\TendePay\Facades\TendePay;
 use DrH\TendePay\Library\Service;
@@ -7,6 +8,7 @@ use function DrH\TendePay\Tests\Feature\Requests\getTestBuyGoodsRequest;
 use function DrH\TendePay\Tests\Feature\Requests\getTestPaybillRequest;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 
 it('throws when configs are not set', function () {
     $request = getTestPaybillRequest();
@@ -38,7 +40,7 @@ it('throws on duplicate request', function () {
     (new \DrH\TendePay\TendePay($this->core))->b2bRequest($payBillRequest, '2');
 })->throws(TendePayException::class, 'Request with this reference exists');
 
-it('handles failed api response', function () {
+it('handles failed request', function () {
     Config::set('tendepay.source_paybill', '654321');
     Config::set('tendepay.username', 'user');
     Config::set('tendepay.password', 'pass');
@@ -59,6 +61,8 @@ it('handles failed api response', function () {
         'transaction_reference' => 2,
         'service' => Service::MPESA_PAY_BILL,
     ]);
+
+    Event::assertDispatched(TendePayRequestEvent::class);
 });
 
 it('can request paybill payment', function () {
@@ -82,6 +86,8 @@ it('can request paybill payment', function () {
         'transaction_reference' => 2,
         'service' => Service::MPESA_PAY_BILL,
     ]);
+
+    Event::assertDispatched(TendePayRequestEvent::class);
 });
 
 it('can request buygoods payment', function () {
@@ -105,4 +111,6 @@ it('can request buygoods payment', function () {
         'transaction_reference' => 2,
         'service' => Service::MPESA_BUY_GOODS,
     ]);
+
+    Event::assertDispatched(TendePayRequestEvent::class);
 });

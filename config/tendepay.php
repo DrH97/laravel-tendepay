@@ -7,7 +7,7 @@ return [
     | ------------------------------------------------------
     | Specify whether this is a test app or production app
     |
-    | Sandbox base url: TODO()
+    | Sandbox base url: 'http://144.76.108.226:8180/GatewayAPIChannel/RequestProcessor/request'
     | Production base url: TODO()
     */
     'sandbox' => env('TENDEPAY_SANDBOX', false),
