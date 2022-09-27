@@ -2,8 +2,29 @@
 
 namespace DrH\TendePay\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
+/**
+ * TendePayRequest
+ *
+ * @property string $service
+ * @property string $unique_reference
+ * @property string $transaction_reference
+ * @property array $text
+ * @property ?string $msisdn
+ * @property string $timestamp
+ * @property string $response_code
+ * @property string $response_message
+ * @property ?string $successful
+ * @property string $status
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @method static Builder|TendePayRequest whereTransactionReference()
+ * …
+ */
 class TendePayRequest extends Model
 {
     protected $guarded = [];
