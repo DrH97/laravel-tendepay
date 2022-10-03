@@ -17,6 +17,8 @@ it('builds correct endpoints', function () {
 });
 
 it('throws on missing encryption key', function () {
+    Config::set('tendepay.encryption_key');
+
     $this->core->encrypt(1);
 })->throws(TendePayException::class, 'Encryption key is not set');
 

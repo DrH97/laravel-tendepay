@@ -44,6 +44,10 @@ class Core
             throw new TendePayException('Encryption key is not set');
         }
 
+        if (is_string($pub_key)) {
+            $pub_key = base64_decode($pub_key);
+        }
+
         $PK = openssl_get_publickey($pub_key);
         if (! $PK) {
             throw new TendePayException('Encryption key seems malformed');
