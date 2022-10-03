@@ -36,10 +36,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Encryption key location
+    | Encryption key
     |--------------------------------------------------------------------------
     |
-    | Location of the public key provided by TendePay
+    | Base 64 encoded string of the contents of the PEM file
     |
     */
     'encryption_key' => env('TENDEPAY_ENCRYPTION_KEY'),
