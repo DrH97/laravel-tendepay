@@ -36,7 +36,7 @@ class Controller extends \Illuminate\Routing\Controller
                 'date' => $request->date,
             ]);
 
-            $event = $callback->status === '1' ?
+            $event = $callback->status == 1 ?
                 new TendePayRequestSuccessEvent($tendePayRequest, $callback) :
                 new TendePayRequestFailedEvent($tendePayRequest, $callback);
 

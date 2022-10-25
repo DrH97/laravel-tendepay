@@ -57,7 +57,7 @@ it('handles duplicate callback', function () {
     postJson('/tendepay/callback', [
         'initiatorReference' => 'reference',
         'responseCode' => 'responseCode',
-        'status' => '1',
+        'status' => 1,
         'statusDescription' => 'statusDescription',
         'amount' => 'amount',
         'account_reference' => 'account_reference',
@@ -87,7 +87,7 @@ it('handles duplicate callback', function () {
     assertDatabaseCount((new TendePayCallback())->getTable(), 1);
     assertDatabaseHas((new TendePayCallback())->getTable(), [
         'initiator_reference' => 'reference',
-        'status' => '1',
+        'status' => 1,
     ]);
 
     Event::assertDispatched(TendePayRequestSuccessEvent::class, 1);
