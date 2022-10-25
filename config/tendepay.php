@@ -8,7 +8,7 @@ return [
     | Specify whether this is a test app or production app
     |
     | Sandbox base url: 'http://144.76.108.226:8180/GatewayAPIChannel/RequestProcessor/request'
-    | Production base url: TODO()
+    | Production base url: https://api.tendepay.com:8443/GatewayAPIChannel/RequestProcessor/request
     */
     'sandbox' => env('TENDEPAY_SANDBOX', false),
 
@@ -83,5 +83,20 @@ return [
     |
     */
     'msisdn' => env('TENDEPAY_MSISDN'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging
+    |--------------------------------------------------------------------------
+    |
+    | Whether to log in the library
+    |
+    */
+    'logging' => [
+        'enabled' => env('TENDEPAY_ENABLE_LOGGING', false),
+        'channels' => [
+            'single', 'stderr',
+        ],
+    ],
 
 ];

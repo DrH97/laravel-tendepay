@@ -1,6 +1,7 @@
 <?php
 
-use DrH\TendePay\Exceptions\TendePayException;
+use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 
 function generateKeyPair(): array
 {
@@ -11,22 +12,58 @@ function generateKeyPair(): array
     return [$private_key, $public_key, $public_key_pem];
 }
 
-/**
- * @throws TendePayException
- */
-//function encrypt(string $plainText): string
-//{
-//    $pub_key = config('tendepay.encryption_key');
-//    if (!$pub_key) {
-//        throw new TendePayException('Encryption key is not set');
-//    }
-//
-//    $PK = openssl_get_publickey($pub_key);
-//    if (!$PK) {
-//        throw new TendePayException('Encryption key seems malformed');
-//    }
-//
-//    openssl_public_encrypt($plainText, $encrypted, $PK);
-//
-//    return bin2hex($encrypted);
-//}
+//TODO: Add tests for all these helpers
+//    e.g. if logging channels doesn't exist, we shouldn't throw error
+if (! function_exists('shouldLog')) {
+    function shouldLog(): bool
+    {
+        return config('tendepay.logging.enabled') == true;
+    }
+}
+
+if (! function_exists('getLogger')) {
+    function getLogger(): LoggerInterface
+    {
+        if (shouldLog()) {
+            $channels = [];
+            foreach (config('tendepay.logging.channels') as $rawChannel) {
+                if (is_string($rawChannel)) {
+                    $channels[] = $rawChannel;
+                } elseif (is_array($rawChannel)) {
+                    $channels[] = Log::build($rawChannel);
+                }
+            }
+
+            return Log::stack($channels);
+        }
+
+        return Log::build([
+            'driver' => 'single',
+            'path' => '/dev/null',
+        ]);
+    }
+}
+
+if (! function_exists('tendePayLog')) {
+    function tendePayLog(string $level, string $message, array $context = []): void
+    {
+        $message = '[LIB - TENDE]: '.$message;
+        getLogger()->log($level, $message, $context);
+    }
+}
+
+if (! function_exists('tendePayLogError')) {
+    function tendePayLogError(string $message, array $context = []): void
+    {
+        $message = '[LIB - TENDE]: '.$message;
+        getLogger()->error($message, $context);
+    }
+}
+
+if (! function_exists('tendePayLogInfo')) {
+    function tendePayLogInfo(string $message, array $context = []): void
+    {
+        $message = '[LIB - TENDE]: '.$message;
+        getLogger()->info($message, $context);
+    }
+}
