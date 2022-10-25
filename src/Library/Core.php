@@ -22,14 +22,13 @@ class Core
     {
         $endpoint = $this->buildEndpoint($request->transactionReference, $request->text->getServiceCode());
         $method = 'POST';
-//
-        // TODO: Create tendepay logger
-//        tendePayLogInfo("request: ", [$method, $endpoint, $body]);
+
+        tendePayLogInfo("request: ", [$method, $endpoint, $request]);
         $encryptedRequest = $request->getEncryptedRequest();
         $response = $this->baseClient->sendRequest($method, $endpoint, $encryptedRequest);
         // TODO: Check for $response if duplicate and regenerate request
         //  Add to env if we should throw or retry with different reference
-//        tendePayLogInfo("response: ", parseGuzzleResponse($response, false));
+        tendePayLogInfo("body: ", [$response]);
 
         return $response;
     }
@@ -40,7 +39,7 @@ class Core
     public function encrypt(string $plainText): string
     {
         $pub_key = config('tendepay.encryption_key');
-        if (! $pub_key) {
+        if (!$pub_key) {
             throw new TendePayException('Encryption key is not set');
         }
 
@@ -49,7 +48,7 @@ class Core
         }
 
         $PK = openssl_get_publickey($pub_key);
-        if (! $PK) {
+        if (!$PK) {
             throw new TendePayException('Encryption key seems malformed');
         }
 

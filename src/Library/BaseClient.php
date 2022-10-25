@@ -19,7 +19,7 @@ class BaseClient
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'json' => $body,
+            'json'    => $body,
         ];
 
         $response = $this->httpClient->request(
@@ -27,6 +27,7 @@ class BaseClient
             $url,
             $options
         );
+        tendePayLogInfo("response: ", [$response]);
 
         return json_decode($response->getBody(), true);
     }
