@@ -25,24 +25,24 @@ class Controller extends \Illuminate\Routing\Controller
 
             $callback = TendePayCallback::create([
                 'initiator_reference' => $request->initiatorReference,
-                'response_code' => $request->responseCode,
-                'status' => $request->status,
-                'status_description' => $request->statusDescription,
-                'amount' => $request->amount,
-                'account_reference' => $request->account_reference,
-                'confirmation_code' => $request->confirmationcode,
-                'msisdn' => $request->msisdn,
+                'response_code'       => $request->responseCode,
+                'status'              => $request->status,
+                'status_description'  => $request->statusDescription,
+                'amount'              => $request->amount,
+                'account_reference'   => $request->account_reference,
+                'confirmation_code'   => $request->confirmationcode,
+                'msisdn'              => $request->msisdn,
                 'receiver_party_name' => $request->receiverpartyname,
-                'date' => $request->date,
+                'date'                => $request->date,
             ]);
 
-            $event = $callback->status === '1' ?
+            $event = $callback->status == 1 ?
                 new TendePayRequestSuccessEvent($tendePayRequest, $callback) :
                 new TendePayRequestFailedEvent($tendePayRequest, $callback);
 
             event($event);
         } catch (Exception $e) {
-            Log::error('Error handling callback. - '.$e->getMessage());
+            Log::error('Error handling callback. - ' . $e->getMessage());
         }
 
         return response()->json(['status' => true]);
