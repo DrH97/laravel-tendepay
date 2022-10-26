@@ -27,7 +27,7 @@ class BaseClient
             $url,
             $options
         );
-        tendePayLogInfo("response: ", parseGuzzleResponse($response));
+        tendePayLogInfo('response: ', parseGuzzleResponse($response));
 
         return json_decode($response->getBody(), true);
     }

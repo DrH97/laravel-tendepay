@@ -15,6 +15,6 @@ class TendePayRequestEvent
 
     public function __construct(public readonly TendePayRequest $request)
     {
-        tendePayLogInfo("TendePayRequestEvent: ", [$request]);
+        tendePayLogInfo('TendePayRequestEvent: ', [$request]);
     }
 }

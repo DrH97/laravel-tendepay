@@ -16,6 +16,6 @@ class TendePayRequestSuccessEvent
 
     public function __construct(public readonly TendePayRequest $request, public readonly TendePayCallback $callback)
     {
-        tendePayLogInfo("TendePayRequestSuccessEvent: ", [$request, $callback]);
+        tendePayLogInfo('TendePayRequestSuccessEvent: ', [$request, $callback]);
     }
 }

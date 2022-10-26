@@ -15,14 +15,14 @@ function generateKeyPair(): array
 
 //TODO: Add tests for all these helpers
 //    e.g. if logging channels doesn't exist, we shouldn't throw error
-if (!function_exists('shouldLog')) {
+if (! function_exists('shouldLog')) {
     function shouldLog(): bool
     {
         return config('tendepay.logging.enabled') == true;
     }
 }
 
-if (!function_exists('getLogger')) {
+if (! function_exists('getLogger')) {
     function getLogger(): LoggerInterface
     {
         if (shouldLog()) {
@@ -34,36 +34,37 @@ if (!function_exists('getLogger')) {
                     $channels[] = Log::build($rawChannel);
                 }
             }
+
             return Log::stack($channels);
         }
 
         return Log::build([
             'driver' => 'single',
-            'path'   => '/dev/null',
+            'path' => '/dev/null',
         ]);
     }
 }
 
-if (!function_exists('tendePayLog')) {
+if (! function_exists('tendePayLog')) {
     function tendePayLog(string $level, string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getLogger()->log($level, $message, $context);
     }
 }
 
-if (!function_exists('tendePayLogError')) {
+if (! function_exists('tendePayLogError')) {
     function tendePayLogError(string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getLogger()->error($message, $context);
     }
 }
 
-if (!function_exists('tendePayLogInfo')) {
+if (! function_exists('tendePayLogInfo')) {
     function tendePayLogInfo(string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getLogger()->info($message, $context);
     }
 }
