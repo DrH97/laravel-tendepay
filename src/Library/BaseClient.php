@@ -19,7 +19,7 @@ class BaseClient
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'json'    => $body,
+            'json' => $body,
         ];
 
         $response = $this->httpClient->request(

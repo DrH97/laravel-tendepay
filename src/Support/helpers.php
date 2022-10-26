@@ -69,8 +69,7 @@ if (! function_exists('tendePayLogInfo')) {
     }
 }
 
-
-if (!function_exists('parseData')) {
+if (! function_exists('parseData')) {
     function parseGuzzleResponse(ResponseInterface $response, bool $includeBody = false): array
     {
         $headers = [];
@@ -83,11 +82,10 @@ if (!function_exists('parseData')) {
             $headers[$name] = $value;
         }
 
-
         // response is cloned to avoid any accidental data damage
         $body = (clone $response)->getBody();
-        if (!$body->isReadable()) {
-            $content = "unreadable";
+        if (! $body->isReadable()) {
+            $content = 'unreadable';
 
             return [
                 'protocol' => $response->getProtocolVersion(),
