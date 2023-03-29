@@ -15,14 +15,14 @@ function generateKeyPair(): array
 
 //TODO: Add tests for all these helpers
 //    e.g. if logging channels doesn't exist, we shouldn't throw error
-if (!function_exists('shouldTendePayLog')) {
+if (! function_exists('shouldTendePayLog')) {
     function shouldTendePayLog(): bool
     {
         return config('tendepay.logging.enabled') == true;
     }
 }
 
-if (!function_exists('getTendePayLogger')) {
+if (! function_exists('getTendePayLogger')) {
     function getTendePayLogger(): LoggerInterface
     {
         if (shouldTendePayLog()) {
@@ -41,36 +41,36 @@ if (!function_exists('getTendePayLogger')) {
 
         return Log::build([
             'driver' => 'single',
-            'path'   => '/dev/null',
+            'path' => '/dev/null',
         ]);
     }
 }
 
-if (!function_exists('tendePayLog')) {
+if (! function_exists('tendePayLog')) {
     function tendePayLog(string $level, string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getTendePayLogger()->log($level, $message, $context);
     }
 }
 
-if (!function_exists('tendePayLogError')) {
+if (! function_exists('tendePayLogError')) {
     function tendePayLogError(string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getTendePayLogger()->error($message, $context);
     }
 }
 
-if (!function_exists('tendePayLogInfo')) {
+if (! function_exists('tendePayLogInfo')) {
     function tendePayLogInfo(string $message, array $context = []): void
     {
-        $message = '[LIB - TENDE]: ' . $message;
+        $message = '[LIB - TENDE]: '.$message;
         getTendePayLogger()->info($message, $context);
     }
 }
 
-if (!function_exists('parseData')) {
+if (! function_exists('parseData')) {
     function parseGuzzleResponse(ResponseInterface $response, bool $includeBody = false): array
     {
         $headers = [];
@@ -85,16 +85,16 @@ if (!function_exists('parseData')) {
 
         // response is cloned to avoid any accidental data damage
         $body = (clone $response)->getBody();
-        if (!$body->isReadable()) {
+        if (! $body->isReadable()) {
             $content = 'unreadable';
 
             return [
-                'protocol'      => $response->getProtocolVersion(),
+                'protocol' => $response->getProtocolVersion(),
                 'reason_phrase' => $response->getReasonPhrase(),
-                'status_code'   => $response->getStatusCode(),
-                'headers'       => $headers,
-                'size'          => $response->getBody()->getSize(),
-                'body'          => $content,
+                'status_code' => $response->getStatusCode(),
+                'headers' => $headers,
+                'size' => $response->getBody()->getSize(),
+                'body' => $content,
             ];
         }
 
@@ -111,19 +111,19 @@ if (!function_exists('parseData')) {
 
         return $includeBody ?
             [
-                'protocol'      => $response->getProtocolVersion(),
+                'protocol' => $response->getProtocolVersion(),
                 'reason_phrase' => $response->getReasonPhrase(),
-                'status_code'   => $response->getStatusCode(),
-                'headers'       => $headers,
-                'size'          => $response->getBody()->getSize(),
-                'body'          => $content,
+                'status_code' => $response->getStatusCode(),
+                'headers' => $headers,
+                'size' => $response->getBody()->getSize(),
+                'body' => $content,
             ] :
             [
-                'protocol'      => $response->getProtocolVersion(),
+                'protocol' => $response->getProtocolVersion(),
                 'reason_phrase' => $response->getReasonPhrase(),
-                'status_code'   => $response->getStatusCode(),
-                'headers'       => $headers,
-                'size'          => $response->getBody()->getSize(),
+                'status_code' => $response->getStatusCode(),
+                'headers' => $headers,
+                'size' => $response->getBody()->getSize(),
             ];
     }
 }
