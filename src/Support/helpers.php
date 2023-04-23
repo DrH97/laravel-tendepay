@@ -70,7 +70,7 @@ if (!function_exists('tendePayLogInfo')) {
     }
 }
 
-if (!function_exists('parseData')) {
+if (!function_exists('parseGuzzleResponse')) {
     function parseGuzzleResponse(ResponseInterface $response, bool $includeBody = false): array
     {
         $headers = [];
