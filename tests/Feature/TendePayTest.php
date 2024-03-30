@@ -4,11 +4,12 @@ use DrH\TendePay\Events\TendePayRequestEvent;
 use DrH\TendePay\Exceptions\TendePayException;
 use DrH\TendePay\Facades\TendePay;
 use DrH\TendePay\Library\Service;
-use function DrH\TendePay\Tests\Feature\Requests\getTestBuyGoodsRequest;
-use function DrH\TendePay\Tests\Feature\Requests\getTestPaybillRequest;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+
+use function DrH\TendePay\Tests\Feature\Requests\getTestBuyGoodsRequest;
+use function DrH\TendePay\Tests\Feature\Requests\getTestPaybillRequest;
 
 it('throws when configs are not set', function () {
     $request = getTestPaybillRequest();

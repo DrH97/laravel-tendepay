@@ -19,7 +19,7 @@ class TendePay
     /**
      * @throws TendePayException
      */
-    public function b2bRequest(PayBillRequest|BuyGoodsRequest $request, string $reference = null, string $msisdn = null, int $relationId = null): TendePayRequest
+    public function b2bRequest(PayBillRequest|BuyGoodsRequest $request, ?string $reference = null, ?string $msisdn = null, ?int $relationId = null): TendePayRequest
     {
         $request->validate();
 

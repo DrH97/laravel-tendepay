@@ -24,7 +24,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  *
  * @method static Builder|TendePayCallback whereInitiatorReference()
- * …
+ *                                                                   …
  */
 class TendePayCallback extends Model
 {
