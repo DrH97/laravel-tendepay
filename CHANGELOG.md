@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-tendepay` will be documented in this file.
 
+## v2.0.0 - 2024-03-30
+
+Laravel 11 Support
+
 ## v1.3.0 - 2023-02-22
 
 Adds support for Laravel 10
